@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 
-import Header from "./components/Header";
-import Sidebar from "./components/Sidebar";
+import Header from "./Components/Header";
+import Sidebar from "./Components/Sidebar";
 
-import Dashboard from "./components/Dashboard";
-import AIAssistant from "./components/AIAssistant";
-import NotesGenerator from "./components/NotesGenerator";
-import QuizGenerator from "./components/QuizGenerator";
-import StudyPlanner from "./components/StudyPlanner";
-import Resources from "./components/Resources";
-import Progress from "./components/Progress";
-import Settings from "./components/Settings";
+import Dashboard from "./Components/Dashboard";
+import AIAssistant from "./Components/AIAssistant";
+import NotesGenerator from "./Components/NotesGenerator";
+import QuizGenerator from "./Components/QuizGenerator";
+import StudyPlanner from "./Components/StudyPlanner";
+import Resources from "./Components/Resources";
+import Progress from "./Components/Progress";
+import Settings from "./Components/Settings";
 
-import Login from "./components/Login";
-import Register from "./components/Register";
+import Login from "./Components/Login";
+import Register from "./Components/Register";
 
 import "./App.css";
 
