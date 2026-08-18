@@ -2,11 +2,10 @@ function Dashboard({ user, setActivePage }) {
     const userName = user?.name || "Student";
 
     return (
-
         <section>
 
+            {/* Welcome Section */}
             <div className="welcome">
-
                 <h1>
                     Welcome back, {userName}! 👋
                 </h1>
@@ -14,48 +13,43 @@ function Dashboard({ user, setActivePage }) {
                 <p>
                     What would you like to learn today?
                 </p>
-
             </div>
 
+
+            {/* Quick Actions */}
             <div className="quick-actions">
 
                 <button
-                    onClick={() =>
-                        setActivePage("assistant")
-                    }
+                    onClick={() => setActivePage("assistant")}
                 >
                     🤖 Ask AI
                 </button>
 
 
                 <button
-                    onClick={() =>
-                        setActivePage("notes")
-                    }
+                    onClick={() => setActivePage("notes")}
                 >
                     📝 Generate Notes
                 </button>
 
 
                 <button
-                    onClick={() =>
-                        setActivePage("quiz")
-                    }
+                    onClick={() => setActivePage("quiz")}
                 >
-                    ❓ Generate Quiz
+                    ✏️ Generate Quiz
                 </button>
 
 
                 <button
-                    onClick={() =>
-                        setActivePage("planner")
-                    }
+                    onClick={() => setActivePage("planner")}
                 >
                     📅 Study Plan
                 </button>
 
             </div>
 
+
+            {/* Statistics */}
             <div className="stats">
 
                 <StatCard
@@ -71,7 +65,7 @@ function Dashboard({ user, setActivePage }) {
                 />
 
                 <StatCard
-                    icon="❓"
+                    icon="✏️"
                     number="15"
                     title="Quizzes Completed"
                 />
@@ -84,13 +78,17 @@ function Dashboard({ user, setActivePage }) {
 
             </div>
 
+
+            {/* Dashboard Grid */}
             <div className="dashboard-grid">
 
+                {/* Recent Activity */}
                 <div className="card">
 
                     <h2>
                         Recent Activity
                     </h2>
+
 
                     <div className="activity">
 
@@ -123,7 +121,7 @@ function Dashboard({ user, setActivePage }) {
                     <div className="activity">
 
                         <p>
-                            ❓ Completed
+                            ✏️ Completed
                             <strong> Python Quiz</strong>
                         </p>
 
@@ -135,6 +133,8 @@ function Dashboard({ user, setActivePage }) {
 
                 </div>
 
+
+                {/* Study Progress */}
                 <div className="card">
 
                     <h2>
@@ -147,15 +147,18 @@ function Dashboard({ user, setActivePage }) {
                         percentage="80"
                     />
 
+
                     <ProgressBar
                         name="DBMS"
                         percentage="65"
                     />
 
+
                     <ProgressBar
                         name="Python"
                         percentage="75"
                     />
+
 
                     <ProgressBar
                         name="Computer Networks"
@@ -167,18 +170,20 @@ function Dashboard({ user, setActivePage }) {
             </div>
 
         </section>
-
     );
 }
+
+
+/* ---------------------------------
+   Statistics Card
+---------------------------------- */
 
 function StatCard({
     icon,
     number,
     title
 }) {
-
     return (
-
         <div className="stat-card">
 
             <div className="stat-icon">
@@ -198,17 +203,19 @@ function StatCard({
             </div>
 
         </div>
-
     );
 }
+
+
+/* ---------------------------------
+   Progress Bar
+---------------------------------- */
 
 function ProgressBar({
     name,
     percentage
 }) {
-
     return (
-
         <div className="progress-item">
 
             <div className="progress-info">
@@ -236,7 +243,6 @@ function ProgressBar({
             </div>
 
         </div>
-
     );
 }
 

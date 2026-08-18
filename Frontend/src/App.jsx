@@ -17,7 +17,6 @@ import Register from "./components/Register";
 
 import "./App.css";
 
-
 function App() {
     const [user, setUser] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -54,11 +53,13 @@ function App() {
                 }
 
                 const data = await response.json();
+
                 setUser(data.user);
                 setIsAuthenticated(true);
             } catch (error) {
                 localStorage.removeItem("token");
                 localStorage.removeItem("user");
+
                 setUser(null);
                 setIsAuthenticated(false);
             } finally {
@@ -95,9 +96,14 @@ function App() {
             <div className="auth-page">
                 <div className="auth-card">
                     <div className="auth-logo">🤖</div>
+
                     <h1>AI Student Assistant</h1>
+
                     <h2>Checking your session...</h2>
-                    <p>Please wait while we verify your account.</p>
+
+                    <p>
+                        Please wait while we verify your account.
+                    </p>
                 </div>
             </div>
         );
@@ -124,44 +130,43 @@ function App() {
     const renderPage = () => {
         switch (activePage) {
             case "dashboard":
-
                 return (
                     <Dashboard
+                        user={user}
                         setActivePage={setActivePage}
                     />
                 );
 
             case "assistant":
-
                 return <AIAssistant />;
 
             case "notes":
-
                 return <NotesGenerator />;
 
             case "quiz":
-
                 return <QuizGenerator />;
 
             case "planner":
-
                 return <StudyPlanner />;
 
             case "resources":
-
                 return <Resources />;
 
             case "progress":
-
                 return <Progress />;
 
             case "settings":
-                return <Settings user={user} onLogout={handleLogout} />;
+                return (
+                    <Settings
+                        user={user}
+                        onLogout={handleLogout}
+                    />
+                );
 
             default:
-
                 return (
                     <Dashboard
+                        user={user}
                         setActivePage={setActivePage}
                     />
                 );
@@ -171,12 +176,14 @@ function App() {
     return (
         <>
             <Header user={user} />
+
             <div className="app-container">
                 <Sidebar
                     activePage={activePage}
                     setActivePage={setActivePage}
                     onLogout={handleLogout}
                 />
+
                 <main className="main-content">
                     {renderPage()}
                 </main>
