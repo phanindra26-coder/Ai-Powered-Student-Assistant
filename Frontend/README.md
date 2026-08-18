@@ -465,3 +465,20 @@ If you find this project useful, consider giving the repository a ⭐ on GitHub.
 ---
 
 **Built with React.js, Node.js, Express.js, MySQL, JWT, and AI API integration.**
+<img width="1919" height="1032" alt="Screenshot 2026-08-18 172710" src="https://github.com/user-attachments/assets/58fbe7d4-7276-4a8c-b496-92aecfd9b32d" />
+<img width="1919" height="1028" alt="Screenshot 2026-08-18 172741" src="https://github.com/user-attachments/assets/55ca8361-c2d3-423b-a54d-9c7f0756d5b1" />
+<img width="1919" height="1032" alt="Screenshot 2026-08-18 172813" src="https://github.com/user-attachments/assets/1730d710-55c0-4b7a-af1f-3486f633c431" />
+<img width="1919" height="1035" alt="Screenshot 2026-08-18 172835" src="https://github.com/user-attachments/assets/e409a9df-e5ef-4c05-afa9-ecc4469ec72a" />
+<img width="1919" height="1022" alt="Screenshot 2026-08-18 172934" src="https://github.com/user-attachments/assets/86b9f517-6dc9-4bde-87d7-e889bd76ac8d" />
+<img width="1919" height="1029" alt="Screenshot 2026-08-18 173008" src="https://github.com/user-attachments/assets/4c4d6f7d-e541-454f-91d6-f28b568c046c" />
+<img width="1919" height="1028" alt="Screenshot 2026-08-18 173027" src="https://github.com/user-attachments/assets/1983b121-c2c5-4cd3-8c65-85163a682c95" />
+<img width="1919" height="1030" alt="Screenshot 2026-08-18 173047" src="https://github.com/user-attachments/assets/52896a8f-e21d-40cf-948f-5118d871f486" />
+<img width="1918" height="1030" alt="Screenshot 2026-08-18 173110" src="https://github.com/user-attachments/assets/2474959a-39b0-4533-b61e-7375e01666a4" />
+
+
+
+
+
+
+
+
