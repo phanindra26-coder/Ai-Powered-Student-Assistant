@@ -1,12 +1,9 @@
 const express = require("express");
 const cors = require("cors");
-const app = express();
-
-app.use(cors());
-app.use(express.json());
 require("dotenv").config();
 
 const db = require("./db");
+
 const authRoutes = require("./Routes/authRoutes");
 const chatRoutes = require("./Routes/chatRoutes");
 const notesRoutes = require("./Routes/notesRoutes");
@@ -15,6 +12,16 @@ const plannerRoutes = require("./Routes/plannerRoutes");
 const progressRoutes = require("./Routes/progressRoutes");
 
 const app = express();
+
+app.use(
+    cors({
+        origin: true,
+        credentials: true
+    })
+);
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 const initializeDatabase = async () => {
     const queries = [
@@ -25,6 +32,7 @@ const initializeDatabase = async () => {
             password VARCHAR(255) NOT NULL,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )`,
+
         `CREATE TABLE IF NOT EXISTS chat_sessions (
             id INT AUTO_INCREMENT PRIMARY KEY,
             user_id INT NOT NULL,
@@ -34,6 +42,7 @@ const initializeDatabase = async () => {
             FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
             INDEX idx_chat_sessions_user_id (user_id)
         )`,
+
         `CREATE TABLE IF NOT EXISTS chat_messages (
             id INT AUTO_INCREMENT PRIMARY KEY,
             session_id INT NOT NULL,
@@ -43,6 +52,7 @@ const initializeDatabase = async () => {
             FOREIGN KEY (session_id) REFERENCES chat_sessions(id) ON DELETE CASCADE,
             INDEX idx_chat_messages_session_id (session_id)
         )`,
+
         `CREATE TABLE IF NOT EXISTS chat_history (
             id INT AUTO_INCREMENT PRIMARY KEY,
             user_id INT NOT NULL,
@@ -52,6 +62,7 @@ const initializeDatabase = async () => {
             FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
             INDEX idx_chat_history_user_id (user_id)
         )`,
+
         `CREATE TABLE IF NOT EXISTS study_plans (
             id INT AUTO_INCREMENT PRIMARY KEY,
             user_id INT NOT NULL,
@@ -68,6 +79,7 @@ const initializeDatabase = async () => {
             FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
             INDEX idx_study_plans_user_id (user_id)
         )`,
+
         `CREATE TABLE IF NOT EXISTS user_progress (
             id INT AUTO_INCREMENT PRIMARY KEY,
             user_id INT NOT NULL,
@@ -85,20 +97,9 @@ const initializeDatabase = async () => {
     for (const query of queries) {
         await db.query(query);
     }
+
+    console.log("Database tables initialized successfully.");
 };
-
-initializeDatabase().catch((error) => {
-    console.error("Database initialization failed:", error.message);
-});
-
-app.use(
-    cors({
-        origin: true,
-        credentials: true,
-    })
-);
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/chat", chatRoutes);
@@ -109,7 +110,8 @@ app.use("/api/progress", progressRoutes);
 
 app.get("/", (req, res) => {
     res.json({
-        message: "AI Student Assistant Backend is running!"
+        message: "AI Student Assistant Backend is running!",
+        status: "success"
     });
 });
 
@@ -124,6 +126,18 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+const startServer = async () => {
+    try {
+        await initializeDatabase();
+
+        app.listen(PORT, () => {
+            console.log(`Server running on port ${PORT}`);
+            console.log(`API: http://localhost:${PORT}`);
+        });
+    } catch (error) {
+        console.error("Failed to start server:", error.message);
+        process.exit(1);
+    }
+};
+
+startServer();
