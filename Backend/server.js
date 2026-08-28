@@ -20,8 +20,8 @@ app.use(
     })
 );
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
 const initializeDatabase = async () => {
     const queries = [
@@ -61,6 +61,18 @@ const initializeDatabase = async () => {
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
             INDEX idx_chat_history_user_id (user_id)
+        )`,
+
+        `CREATE TABLE IF NOT EXISTS notes (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            user_id INT NOT NULL,
+            title VARCHAR(255) NOT NULL,
+            subject VARCHAR(255),
+            content LONGTEXT NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+            INDEX idx_notes_user_id (user_id)
         )`,
 
         `CREATE TABLE IF NOT EXISTS study_plans (
@@ -109,18 +121,33 @@ app.use("/api/planner", plannerRoutes);
 app.use("/api/progress", progressRoutes);
 
 app.get("/", (req, res) => {
-    res.json({
+    res.status(200).json({
         message: "AI Student Assistant Backend is running!",
         status: "success"
     });
 });
 
+app.get("/api/health", (req, res) => {
+    res.status(200).json({
+        status: "ok",
+        message: "Backend API is healthy"
+    });
+});
+
 app.use((err, req, res, next) => {
-    console.error(err.stack);
+    console.error("Server error:", err);
 
     res.status(500).json({
         message: "Internal Server Error",
-        error: err.message
+        error: process.env.NODE_ENV === "production"
+            ? "Something went wrong"
+            : err.message
+    });
+});
+
+app.use((req, res) => {
+    res.status(404).json({
+        message: "API endpoint not found"
     });
 });
 
@@ -133,9 +160,10 @@ const startServer = async () => {
         app.listen(PORT, () => {
             console.log(`Server running on port ${PORT}`);
             console.log(`API: http://localhost:${PORT}`);
+            console.log(`Health: http://localhost:${PORT}/api/health`);
         });
     } catch (error) {
-        console.error("Failed to start server:", error.message);
+        console.error("Failed to start server:", error);
         process.exit(1);
     }
 };
