@@ -43,8 +43,8 @@ function App() {
                         method: "GET",
                         headers: {
                             Authorization: `Bearer ${token}`,
-                            "Content-Type": "application/json",
-                        },
+                            "Content-Type": "application/json"
+                        }
                     }
                 );
 
@@ -132,7 +132,6 @@ function App() {
             case "dashboard":
                 return (
                     <Dashboard
-                        user={user}
                         setActivePage={setActivePage}
                     />
                 );
@@ -166,7 +165,6 @@ function App() {
             default:
                 return (
                     <Dashboard
-                        user={user}
                         setActivePage={setActivePage}
                     />
                 );
