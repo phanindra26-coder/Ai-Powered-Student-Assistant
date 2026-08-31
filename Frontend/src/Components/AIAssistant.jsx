@@ -132,7 +132,7 @@ function AIAssistant() {
             setMessages((previous) => [
                 ...previous,
                 {
-                    id: response.message || Date.now() + 1,
+                    id: Date.now() + 1,
                     sender: "ai",
                     text: response.reply,
                 },
@@ -226,7 +226,7 @@ function AIAssistant() {
                         ) : (
                             messages.map((message) => (
                                 <div
-                                    key={message.id || `${message.sender}-${Math.random()}`}
+                                    key={message.id}
                                     className="message"
                                     style={{
                                         display: "flex",
@@ -264,11 +264,7 @@ function AIAssistant() {
                             onChange={(event) => setInput(event.target.value)}
                             placeholder="Ask your question..."
                             style={{ flex: 1 }}
-                            onKeyDown={(event) => {
-                                if (event.key === "Enter") {
-                                    sendMessage(event);
-                                }
-                            }}
+    
                         />
 
                         <button type="submit" disabled={loading}>

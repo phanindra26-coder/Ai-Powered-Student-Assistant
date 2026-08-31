@@ -6,7 +6,7 @@ function NotesGenerator() {
     const [topic, setTopic] = useState("");
 
     const [level, setLevel] =
-        useState("Beginner");
+        useState("beginner");
 
     const [length, setLength] =
         useState("medium");

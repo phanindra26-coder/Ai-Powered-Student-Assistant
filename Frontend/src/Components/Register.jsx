@@ -1,4 +1,5 @@
 import { useState } from "react";
+import api from "../services/api";
 
 function Register({ onRegister, onLoginClick }) {
     const [name, setName] = useState("");
@@ -35,27 +36,7 @@ function Register({ onRegister, onLoginClick }) {
         try {
             setLoading(true);
 
-            const response = await fetch(
-                `${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/auth/register`,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        name,
-                        email,
-                        password,
-                    }),
-                }
-            );
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                setError(data.message || "Registration failed.");
-                return;
-            }
+            const data = await api.post("/api/auth/register", { name, email, password });
 
             setMessage("Registration successful! Please login.");
             setName("");
@@ -68,7 +49,7 @@ function Register({ onRegister, onLoginClick }) {
             }
         } catch (error) {
             console.error("Registration error:", error);
-            setError("Unable to connect to server. Please make sure the backend is running.");
+            setError(error.message || "Unable to connect to server. Please make sure the backend is running.");
         } finally {
             setLoading(false);
         }
