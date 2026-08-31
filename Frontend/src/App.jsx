@@ -37,16 +37,13 @@ function App() {
 
         const verifyToken = async () => {
             try {
-                const response = await fetch(
-                    `${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/auth/me`,
-                    {
-                        method: "GET",
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                            "Content-Type": "application/json"
-                        }
+                const response = await fetch("/api/auth/me", {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json"
                     }
-                );
+                });
 
                 if (!response.ok) {
                     throw new Error("Invalid token");
@@ -132,6 +129,7 @@ function App() {
             case "dashboard":
                 return (
                     <Dashboard
+                        user={user}
                         setActivePage={setActivePage}
                     />
                 );
@@ -165,6 +163,7 @@ function App() {
             default:
                 return (
                     <Dashboard
+                        user={user}
                         setActivePage={setActivePage}
                     />
                 );

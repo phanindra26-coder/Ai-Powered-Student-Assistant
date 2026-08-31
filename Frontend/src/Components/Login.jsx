@@ -1,4 +1,5 @@
 import { useState } from "react";
+import api from "../services/api";
 
 function Login({ onLogin, onRegisterClick }) {
     const [email, setEmail] = useState("");
@@ -20,26 +21,7 @@ function Login({ onLogin, onRegisterClick }) {
         try {
             setLoading(true);
 
-            const response = await fetch(
-                `${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/auth/login`,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        email,
-                        password,
-                    }),
-                }
-            );
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                setError(data.message || "Login failed.");
-                return;
-            }
+            const data = await api.post("/api/auth/login", { email, password });
 
             if (data.token) {
                 localStorage.setItem("token", data.token);
@@ -52,7 +34,7 @@ function Login({ onLogin, onRegisterClick }) {
             onLogin(data.user);
         } catch (error) {
             console.error("Login error:", error);
-            setError("Unable to connect to server. Please make sure the backend is running.");
+            setError(error.message || "Unable to connect to server. Please make sure the backend is running.");
         } finally {
             setLoading(false);
         }
