@@ -294,9 +294,6 @@ http://localhost:5173
 
 Open the frontend URL in your browser.
 
-## 🔌 API AUTHENTICATION IS MAIN
-
-
 ## 🔒 Security
 
 The application follows basic security practices including:
